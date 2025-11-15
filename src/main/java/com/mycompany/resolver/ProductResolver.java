@@ -8,6 +8,7 @@ import com.mycompany.model.Product;
 import com.mycompany.service.ProductService;
 import java.util.List;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,32 @@ public class ProductResolver {
     }
 
     @QueryMapping
-    public Product getProduct(@Argument Long id) {
-        return productService.getProduct(id);
+    public Product getProductById(@Argument Long id) {
+        return productService.getProductById(id);
+    }
+
+    @QueryMapping
+    public List<Product> getProductsByName(@Argument String name) {
+        return productService.getProductsByName(name);
+    }
+
+    @QueryMapping
+    public List<Product> getProductsByCategory(@Argument String category) {
+        return productService.getProductsByCategory(category);
+    }
+
+    @MutationMapping
+    public Product addProduct(@Argument("input") Product input) {
+        return productService.addProduct(input);
+    }
+
+    @MutationMapping
+    public Product updateProduct(@Argument Long id, @Argument("input") Product input) {
+        return productService.updateProduct(id, input);
+    }
+
+    @MutationMapping
+    public boolean deleteProduct(@Argument Long id) {
+        return productService.deleteProduct(id);
     }
 }
