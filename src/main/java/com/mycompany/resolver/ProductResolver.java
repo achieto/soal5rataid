@@ -17,21 +17,22 @@ import org.springframework.stereotype.Controller;
  * @author msius
  */
 
-@Component
+@Controller
 public class ProductResolver {
-    private ProductService _productService;
-    
-    public ProductResolver(ProductService s) {
-        this._productService = s;
+
+    private final ProductService productService;
+
+    public ProductResolver(ProductService productService) {
+        this.productService = productService;
     }
-    
-    @QueryMapping
-    public Product getProduct(@Argument Long Id) {
-        return _productService.getProduct(Id);
-    }
-    
+
     @QueryMapping
     public List<Product> getAllProducts() {
-        return _productService.getAllProducts();
+        return productService.getAllProducts();
+    }
+
+    @QueryMapping
+    public Product getProduct(@Argument Long id) {
+        return productService.getProduct(id);
     }
 }
